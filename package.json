@@ -2,9 +2,9 @@
   "name": "ui-select",
   "main": "dist/select.js",
   "author": "http://github.com/angular-ui/ui-select/graphs/contributors",
-  "homepage": "http://github.com/angular-ui/ui-select",
+  "homepage": "http://github.com/videonote/ui-select",
   "repository": {
-    "url": "git://github.com/angular-ui/ui-select.git"
+    "url": "git://github.com/videonote/ui-select.git"
   },
   "version": "0.12.1",
   "devDependencies": {
