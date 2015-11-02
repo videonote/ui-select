@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/videonote/ui-select
- * Version: 0.12.1 - 2015-09-13T17:23:59.793Z
+ * Version: 0.12.2 - 2015-11-02T09:13:29.696Z
  * License: MIT
  */
 
@@ -533,6 +533,16 @@ uis.controller('uiSelectCtrl',
           });
         });
 
+        // When the user presses ENTER
+        if (!$event) {
+          var query = this.search;
+          $timeout(function () {
+            ctrl.onEnterKeyPressCallback($scope, {
+              $query: query
+            });
+          });
+        }
+
         if (ctrl.closeOnSelect) {
           ctrl.close(skipFocusser);
         }
@@ -802,6 +812,7 @@ uis.directive('uiSelect',
 
         $select.onSelectCallback = $parse(attrs.onSelect);
         $select.onRemoveCallback = $parse(attrs.onRemove);
+        $select.onEnterKeyPressCallback = $parse(attrs.onEnterKeyPress);
         
         //Limit the number of selections allowed
         $select.limit = (angular.isDefined(attrs.limit)) ? parseInt(attrs.limit, 10) : undefined;

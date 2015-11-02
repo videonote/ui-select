@@ -296,6 +296,16 @@ uis.controller('uiSelectCtrl',
           });
         });
 
+        // When the user presses ENTER
+        if (!$event) {
+          var query = this.search;
+          $timeout(function () {
+            ctrl.onEnterKeyPressCallback($scope, {
+              $query: query
+            });
+          });
+        }
+
         if (ctrl.closeOnSelect) {
           ctrl.close(skipFocusser);
         }
