@@ -44,7 +44,8 @@ uis.directive('uiSelect',
         $select.onSelectCallback = $parse(attrs.onSelect);
         $select.onRemoveCallback = $parse(attrs.onRemove);
         $select.onEnterKeyPressCallback = $parse(attrs.onEnterKeyPress);
-        
+        $select.resetSelection = attrs.resetSelection;
+
         //Limit the number of selections allowed
         $select.limit = (angular.isDefined(attrs.limit)) ? parseInt(attrs.limit, 10) : undefined;
 

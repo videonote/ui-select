@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/videonote/ui-select
- * Version: 0.12.2 - 2015-11-02T09:13:29.696Z
+ * Version: 0.12.3 - 2015-11-03T08:56:40.953Z
  * License: MIT
  */
 
@@ -521,25 +521,29 @@ uis.controller('uiSelectCtrl',
           }
         }
 
-        $scope.$broadcast('uis:select', item);
-
-        var locals = {};
-        locals[ctrl.parserResult.itemName] = item;
-
-        $timeout(function(){
-          ctrl.onSelectCallback($scope, {
-            $item: item,
-            $model: ctrl.parserResult.modelMapper($scope, locals)
-          });
-        });
-
-        // When the user presses ENTER
+        // NOTE: these events are exclusive: if a user presses "ENTER", don't fire a "SELECTION"
+        // event as well.
         if (!$event) {
+          // When the user presses ENTER
           var query = this.search;
           $timeout(function () {
-            ctrl.onEnterKeyPressCallback($scope, {
-              $query: query
-            });
+              ctrl.onEnterKeyPressCallback($scope, {
+                  $query: query
+              });
+          });
+        } else {
+          // When the user selects an item
+          $scope.$broadcast('uis:select', item);
+          var locals = {};
+          locals[ctrl.parserResult.itemName] = item;
+          $timeout(function(){
+              ctrl.onSelectCallback($scope, {
+                  $item: item,
+                  $model: ctrl.parserResult.modelMapper($scope, locals)
+              });
+              if (ctrl.resetSelection) {
+                  $scope.$select.selected = undefined;
+              }
           });
         }
 
@@ -813,7 +817,8 @@ uis.directive('uiSelect',
         $select.onSelectCallback = $parse(attrs.onSelect);
         $select.onRemoveCallback = $parse(attrs.onRemove);
         $select.onEnterKeyPressCallback = $parse(attrs.onEnterKeyPress);
-        
+        $select.resetSelection = attrs.resetSelection;
+
         //Limit the number of selections allowed
         $select.limit = (angular.isDefined(attrs.limit)) ? parseInt(attrs.limit, 10) : undefined;
 

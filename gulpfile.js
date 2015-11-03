@@ -26,7 +26,7 @@ var config = {
       ' */\n\n\n'
 };
 
-gulp.task('default', ['build','test']);
+gulp.task('default', ['build']);
 gulp.task('build', ['scripts', 'styles']);
 gulp.task('test', ['build', 'karma']);
 
