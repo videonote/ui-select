@@ -286,10 +286,10 @@ uis.controller('uiSelectCtrl',
 
         // NOTE: these events are exclusive: if a user presses "ENTER", don't fire a "SELECTION"
         // event as well.
+        var locals = {};
         if (!$event) {
           // When the user presses ENTER
           var query = this.search;
-          var locals = {};
           locals[ctrl.parserResult.itemName] = item;
           $timeout(function () {
               ctrl.onEnterKeyPressCallback($scope, {
@@ -301,7 +301,6 @@ uis.controller('uiSelectCtrl',
         } else {
           // When the user selects an item
           $scope.$broadcast('uis:select', item);
-          var locals = {};
           locals[ctrl.parserResult.itemName] = item;
           $timeout(function(){
               ctrl.onSelectCallback($scope, {
