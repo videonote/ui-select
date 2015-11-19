@@ -289,9 +289,13 @@ uis.controller('uiSelectCtrl',
         if (!$event) {
           // When the user presses ENTER
           var query = this.search;
+          var locals = {};
+          locals[ctrl.parserResult.itemName] = item;
           $timeout(function () {
               ctrl.onEnterKeyPressCallback($scope, {
-                  $query: query
+                  $query: query,
+                  $item: item,
+                  $model: ctrl.parserResult.modelMapper($scope, locals)                  
               });
           });
         } else {
